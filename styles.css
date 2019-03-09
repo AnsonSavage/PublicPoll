@@ -1,0 +1,12 @@
+#createPoll {
+  border-color: rgb(161, 161, 161);
+  border-radius: 10px;
+  border-style: groove;
+  border-width: thin;
+  box-shadow:
+}
+
+#options {
+  display: inline;
+  width: 100%;
+}

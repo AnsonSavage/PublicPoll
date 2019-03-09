@@ -11,7 +11,36 @@
 <body>
   <!-- Everything in the below div will be manipulated by the Vue scripts in frontEnd.js -->
   <div id="app">
-
+    <form v-on:submit.prevent="addPoll()" id="createPoll">
+      <input placeholder="Username" v-model="username" />
+      <br />
+      <textarea v-model="questionInCreation"></textarea>
+      <br />
+      <div id="options" v-for="i in optionsInCreation.length">
+        <input v-bind:placeholder="'Option ' + i" v-model="optionsInCreation[i - 1]" />
+      </div>
+      <button type="button" v-on:click="addOption()">Add Option!</button>
+      <br />
+      <button type="submit">Create new Poll!</button>
+    </form>
+    <div id="polls">
+      <div class="poll" v-for="poll in polls">
+        <p>
+          {{poll.username}}
+        </p>
+        <p>
+          {{poll.question}}
+        </p>
+        <div class="buttons">
+          <div class="vote" v-for="option in poll.options">
+            <p>
+              Number of votes: {{Object.values(option)[0]}}
+            </p>
+            <button>{{Object.keys(option)[0]}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
