@@ -6,6 +6,8 @@
     Public Poll
   </title>
   <link rel="stylesheet" href="/styles.css" />
+  <script type="text/javascript" src="http://livejs.com/live.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 
 <body>
@@ -25,10 +27,10 @@
     </form>
     <div id="polls">
       <div class="poll" v-for="poll in polls">
-        <p>
+        <p class="username">
           {{poll.username}}
         </p>
-        <p>
+        <p class="question">
           {{poll.question}}
         </p>
         <div class="buttons">
@@ -37,6 +39,20 @@
               Number of votes: {{Object.values(option)[0]}}
             </p>
             <button>{{Object.keys(option)[0]}}</button>
+          </div>
+        </div>
+        <div class="comments">
+          <div class="newComment">
+            <p>
+              Add comment:
+            </p>
+            <textarea v-model="commentInCreation"></textarea>
+            <button v-on:click="poll.addComment(commentInCreation)">Add comment!</button>
+          </div>
+          <div v-for="comment in poll.comments" class="comment">
+            <p>
+              {{comment}}
+            </p>
           </div>
         </div>
       </div>

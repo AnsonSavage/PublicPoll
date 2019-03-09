@@ -1,12 +1,56 @@
+body {
+  font-family: 'Lato', sans-serif;
+}
+
 #createPoll {
-  border-color: rgb(161, 161, 161);
+  border-color: rgb(167, 167, 167);
   border-radius: 10px;
-  border-style: groove;
+  border-style: solid;
   border-width: thin;
-  box-shadow:
+  box-shadow: 0px 0px 10px rgb(82, 82, 82);
+  padding: 1%;
 }
 
 #options {
   display: inline;
   width: 100%;
 }
+
+#polls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.poll {
+  border-color: rgb(167, 167, 167);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: thin;
+  box-shadow: 0px 0px 10px rgb(82, 82, 82);
+  padding: 1%;
+  width: 50%;
+  margin: auto;
+  margin-top: 1%;
+}
+
+.username {
+  font-size: 2em;
+  margin: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.vote {
+  padding: 1%;
+}
+
+.comments {}
+
+.newComment {}
+
+.comment {}

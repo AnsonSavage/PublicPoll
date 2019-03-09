@@ -8,6 +8,7 @@ let app = new Vue({
     ],
     username: "",
     questionInCreation: "",
+    commentInCreation: "",
 
     //Array to hold polls that have already been created:
     polls: [
@@ -29,7 +30,10 @@ let app = new Vue({
         username: this.username,
         question: this.questionInCreation,
         options: [],
-        comments: []
+        comments: [],
+        addComment: comment => {
+          this.comments.push(comment)
+        },
       }
       this.optionsInCreation.forEach(option => {
         let newOption = {}; //Create a new, empty object
@@ -37,27 +41,18 @@ let app = new Vue({
         console.log(newOption[option], option);
         poll.options.push(newOption);
         console.log(poll.options);
-        // poll.options.push({
-        //   option: 0
-        // });
-        //console.log(option);
       });
-
-      // for (let i = 0; i < this.optionsInCreation.length; i++) {
-      //   let newOption = {};
-      //   newOption[]
-      //   poll.options.push({
-      //     this.optionsInCreation[i]: 0
-      //   }); //Add the option with the number of votes it has
-      // }
-
       this.polls.push(poll);
       //Clear out variables
       this.username = "";
       this.questionInCreation = "";
       this.optionsInCreation = ["", ""];
       console.log("We just added a poll!");
-    }
+    },
+    // addComment(item) {
+    //   console.log(item);
+    //   item[comments].push(this.commentInCreation);
+    // },
   },
   computed: {
 
