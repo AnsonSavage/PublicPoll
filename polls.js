@@ -32,7 +32,6 @@ router.get("/", async (request, response) => { //Again, we don't have to use "/a
 });
 
 router.post("/", async (request, response) => {
-  console.log(request.body.options); //These are the options sent across
   const poll = new Poll({
     username: request.body.username, //I'm pretty sure that this stuff already went through the bodyParser.
     questionText: request.body.questionText,
