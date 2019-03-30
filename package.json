@@ -1,0 +1,24 @@
+{
+  "name": "facepoll",
+  "version": "1.0.0",
+  "description": "A social media mockup centered around polling",
+  "main": "frontEnd.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnsonSavage/PublicPoll.git"
+  },
+  "author": "Anson Savage",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnsonSavage/PublicPoll/issues"
+  },
+  "homepage": "https://github.com/AnsonSavage/PublicPoll#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.20"
+  }
+}
