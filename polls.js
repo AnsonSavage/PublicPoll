@@ -2,6 +2,14 @@ const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router(); //We need a router to rout all our api request!
 
+//Uncomment the comment schema when we are ready to implement comments.
+/*
+const commentSchema = new mongoose.Schema({
+  username: String,
+  commentText: String,
+  date: Date,
+});
+*/
 
 const pollSchema = new mongoose.Schema({ //Maps to a MongDB collection
   username: String, //Notice that, as of right now, we are storing the username in the Poll itself. What I plan to do is to have each user object have an array of ids which point to the polls they have made.
@@ -9,13 +17,8 @@ const pollSchema = new mongoose.Schema({ //Maps to a MongDB collection
   date: Date, //We could store this as a Date object, but we're already sending the date over as a string... IDK what's better practice, we can change this later.
   optionsText: [String], //This is how the stuff will be stored in the database, but when it's converted to JSON, it'll get slammed back into one object.
   optionsVotes: [Number]
-  //comments: [{commentUser: String, commentText: String}] //Go ahead and implement this once we get comments working.
+  //comments: [commentSchema] //Go ahead and implement this once we get comments working.
 });
-
-// pollSchema.methods.toJSON = async () => { //I'm making this so we can turn the object ids into actual objects.
-//   date
-// };
-
 
 const Poll = mongoose.model('Poll', pollSchema); //We have to convert the schema into a model in order to begin working with it. Instances of this model become documents
 
@@ -39,7 +42,6 @@ router.post("/", async (request, response) => {
   });
   try {
     await poll.save(); //Try to save this in the database as a new document
-    console.log("We added a poll to the server!");
     return response.send(poll); //Send back the poll!
   } catch (error) {
     console.log(error);
@@ -54,6 +56,8 @@ router.put("/:id", async (request, response) => {
     }, {
       optionsVotes: request.body.optionsVotes,
     });
+
+    //Below is a proposed more efficient solution
     // const pollToUpdate = await Poll.findOne({
     //   _id: request.params.id
     // });
@@ -71,7 +75,6 @@ router.put("/:id", async (request, response) => {
 
 router.delete("/:id", async (request, response) => {
   try {
-    console.log("We will now try deleting the object.");
     await Poll.deleteOne({
       _id: request.params.id
     }, error => {
@@ -79,7 +82,6 @@ router.delete("/:id", async (request, response) => {
         console.log(error);
       }
     });
-    console.log("We deleted it!");
     response.sendStatus(200); //Hooray, we deleted it!
   } catch (error) {
     console.log("Couldn't delete the object!");

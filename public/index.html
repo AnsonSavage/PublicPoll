@@ -17,6 +17,9 @@
   </div>
   <!-- Everything in the below div will be manipulated by the Vue scripts in frontEnd.js -->
   <div id="app">
+    <div class="spinner" v-show="loading">
+
+    </div>
     <form v-on:submit.prevent="addPoll()" id="createPoll">
       <h2>Create Poll:</h2>
       <input placeholder="Username" v-model="username" />
@@ -57,7 +60,6 @@
               {{Math.round((poll.optionsVotes[i-1]/poll.optionsVotes.reduce((a, b) => a + b, 0)) * 10000)/100}}%
               <!-- If you're feeling lucky, you can optimize this with computed properties. -->
             </p>
-            <!-- Objects are automatically passed by reference, so this just might work. -->
           </div>
         </div>
         <div class="pollBottomButtons">

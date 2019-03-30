@@ -54,7 +54,7 @@ let app = new Vue({
           // addComment: comment => {
           //   this.comments.push(comment)
           // },
-          //date: moment().format('MMMM Do YYYY, h:mm:ss a'), //We will take care of adding the date in the backend
+          //We will take care of adding the date in the backend
         }
         this.optionsInCreation.forEach(option => {
           if (option !== "") {
@@ -92,10 +92,6 @@ let app = new Vue({
     },
     async addCount(poll, i) {
       console.log("Adding count to " + poll.optionsVotes[i]);
-      //poll.total++;
-      //Increment the count associated with that particular value
-      //option[Object.keys(option)[0]]++; //There's got to be a better way to do this, but oh well.
-      // poll.optionsVotes[i]++;
       Vue.set(poll.optionsVotes, i, poll.optionsVotes[i] + 1); //Remember, Vue has a weird thing with arrays
       try {
         await axios.put("/api/polls/" + poll._id, {
@@ -113,6 +109,6 @@ let app = new Vue({
     // },
   },
   computed: {
-
+    //Consider creating a computed property that holds the total of all the votes for each poll... The only difficulty is that it may be more intensive to serach for which index we are looking for.
   },
 })
