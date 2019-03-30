@@ -45,7 +45,7 @@
           </p>
         </div>
         <p class="question">
-          {{poll.question}}
+          {{poll.questionText}}
         </p>
         <div class="buttons">
           <div class="vote" v-for="i in poll.optionsText.length">
@@ -59,6 +59,9 @@
             </p>
             <!-- Objects are automatically passed by reference, so this just might work. -->
           </div>
+        </div>
+        <div class="pollBottomButtons">
+          <button v-on:click="deletePoll(poll)" class="delete">Delete Poll</button>
         </div>
         <!-- UNCOMMENT THIS TO GET COMMENTS: -->
         <!-- <div class="comments">

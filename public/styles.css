@@ -83,6 +83,18 @@ button {
   border-style: none;
 }
 
+.pollBottomButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete {
+  background-color: rgb(255, 107, 107);
+  display: flex;
+  justify-content: center;
+}
+
 #sendPoll {
   background-color: rgb(158, 251, 100);
 }

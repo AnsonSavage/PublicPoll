@@ -54,9 +54,35 @@ router.put("/:id", async (request, response) => {
     }, {
       optionsVotes: request.body.optionsVotes,
     });
+    // const pollToUpdate = await Poll.findOne({
+    //   _id: request.params.id
+    // });
+    // console.log(pollToUpdate.username);
+    // pollToUpdate.optionsVotes.(request.body.index) = request.body.newValue;
+    // console.log("We did it!");
+    // await pollToUpdate.save();
     response.sendStatus(200);
   } catch (error) {
     console.log("Couldn't update the vote count on the object!");
+    console.log(error);
+    response.sendStatus(500);
+  }
+});
+
+router.delete("/:id", async (request, response) => {
+  try {
+    console.log("We will now try deleting the object.");
+    await Poll.deleteOne({
+      _id: request.params.id
+    }, error => {
+      if (!error) {
+        console.log(error);
+      }
+    });
+    console.log("We deleted it!");
+    response.sendStatus(200); //Hooray, we deleted it!
+  } catch (error) {
+    console.log("Couldn't delete the object!");
     console.log(error);
     response.sendStatus(500);
   }

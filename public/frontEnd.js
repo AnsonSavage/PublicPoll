@@ -26,11 +26,12 @@ let app = new Vue({
   },
   methods: {
     async getPolls() {
+      this.polls = [];
       try {
         let response = await axios.get("/api/polls");
         // this.polls = response.data;
-        response.data.forEach(poll => {
-          this.polls.push(poll);
+        response.data.forEach(poll => { //For each poll in the response, add it to the front of our front end polls array
+          this.polls.unshift(poll);
         });
         console.log("We grabbed the polls!");
       } catch (error) {
@@ -79,6 +80,16 @@ let app = new Vue({
         console.log("Insufficient information to add a poll!")
       }
     },
+    async deletePoll(poll) {
+      try {
+        await axios.delete("/api/polls/" + poll._id);
+        this.loading = true;
+        await this.getPolls(); //Can optimize this so that we just remove this particular poll from our local array.
+        this.loading = false;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async addCount(poll, i) {
       console.log("Adding count to " + poll.optionsVotes[i]);
       //poll.total++;
@@ -88,6 +99,8 @@ let app = new Vue({
       Vue.set(poll.optionsVotes, i, poll.optionsVotes[i] + 1); //Remember, Vue has a weird thing with arrays
       try {
         await axios.put("/api/polls/" + poll._id, {
+          // index: i, //This is a more efficient approach for another time.
+          // newValue: poll.optionsVotes[i],
           optionsVotes: poll.optionsVotes,
         });
       } catch (error) {
