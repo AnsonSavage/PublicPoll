@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>
+    Public Poll
+  </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/styles.css" />
+  <!-- <script type="text/javascript" src="http://livejs.com/live.js"></script> -->
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+</head>
+
+<body>
+  <div class="page-header">
+    <h1>FacePoll</h1>
+  </div>
+  <!-- Everything in the below div will be manipulated by the Vue scripts in frontEnd.js -->
+  <div id="app">
+    <form v-on:submit.prevent="addPoll()" id="createPoll">
+      <h2>Create Poll:</h2>
+      <input placeholder="Username" v-model="username" />
+      <br />
+      <textarea v-model="questionInCreation" placeholder="Enter text of poll"></textarea>
+      <br />
+      <div id="options" v-for="i in optionsInCreation.length">
+        <input v-bind:placeholder="'Option ' + i" v-model="optionsInCreation[i - 1]" />
+      </div>
+      <button type="button" v-on:click="addOption()">Add Option</button>
+      <br />
+      <button type="submit" id="sendPoll">Create new Poll!</button>
+      <p id="complete" v-show="username === '' | questionInCreation ==='' | optionsInCreation[0] ==='' | optionsInCreation[1] === ''">
+        Please enter a username, a poll question, and possible options.
+      </p>
+    </form>
+    <div id="polls">
+      <div class="poll" v-for="poll in polls">
+        <div class="pollHeader">
+          <img class="userPortrait" src="images/Portrait_Placeholder_Square.png" />
+          <p class="username">
+            {{poll.username}}
+          </p>
+          <p class="date">
+            {{getDate(poll.date)}}
+          </p>
+        </div>
+        <p class="question">
+          {{poll.question}}
+        </p>
+        <div class="buttons">
+          <div class="vote" v-for="i in poll.optionsText.length">
+            <button v-on:click="addCount(poll, i -1)">{{poll.optionsText[i - 1]}}</button>
+            <strong>
+              Votes: {{poll.optionsVotes[i-1]}}
+            </strong>
+            <p v-show="poll.optionsVotes.reduce((a, b) => a + b, 0)!== 0">
+              {{Math.round((poll.optionsVotes[i-1]/poll.optionsVotes.reduce((a, b) => a + b, 0)) * 10000)/100}}%
+              <!-- If you're feeling lucky, you can optimize this with computed properties. -->
+            </p>
+            <!-- Objects are automatically passed by reference, so this just might work. -->
+          </div>
+        </div>
+        <!-- UNCOMMENT THIS TO GET COMMENTS: -->
+        <!-- <div class="comments">
+          <div class="newComment">
+            <p>
+              Add comment:
+            </p>
+            <textarea v-model="commentInCreation"></textarea>
+            <button v-on:click="poll.addComment(commentInCreation)">Add comment!</button>
+          </div>
+          <div v-for="comment in poll.comments" class="comment">
+            <p>
+              {{comment}}
+            </p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <a href="https://github.com/AnsonSavage/PublicPoll">Source Code on GitHub</a>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+  <script src="/frontEnd.js"></script>
+</body>
+
+</html>
