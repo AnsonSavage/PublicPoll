@@ -1,12 +1,15 @@
 let app = new Vue({
   el: '#app',
   data: {
+    user: null,
+    username: "",
+    password: "",
+    error: "", //Holds the text of error messages from the server
     //Temporary variables for creating a new poll
     optionsInCreation: [ //Each default poll has two answer choices
       "",
       ""
     ],
-    username: "",
     questionInCreation: "",
     commentInCreation: "",
     //Array to hold polls that have already been created:
@@ -25,6 +28,17 @@ let app = new Vue({
     this.getPolls();
   },
   methods: {
+    async register() {
+      try {
+        let response = await axios.post("/api/users", {
+          username: this.username,
+          password: this.password,
+        });
+        this.user = response.data;
+      } catch (error) {
+        this.error = error.response.data.message;
+      }
+    }
     async getPolls() {
       this.polls = [];
       try {

@@ -1,3 +1,7 @@
+html {
+  height: 80%;
+}
+
 body {
   font-family: 'Lato', sans-serif;
   display: flex;
@@ -25,8 +29,11 @@ h1 {
 
 #app {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 
 /*The next several chunks of lines are for the spinner, copied from an answer here: https://stackoverflow.com/questions/6091253/overlay-with-spinner/52051920*/
@@ -89,6 +96,17 @@ h1 {
 }
 
 /* End of spinner CSS*/
+#signInForm {
+  margin: auto auto;
+  width: 80%;
+  border-color: rgb(167, 167, 167);
+  border-radius: 10px;
+  border-style: solid;
+  border-width: thin;
+  box-shadow: 0px 0px 10px rgb(82, 82, 82);
+  padding: 5%;
+}
+
 #createPoll {
   margin: 0 auto;
   width: 60%;
